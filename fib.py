@@ -1,32 +1,38 @@
-while True:
-    try:
-        length = int(input("Give the length of the fibonacci series (must be positive): "))
-        start = int(input("Give the starting number: "))
-        break
-    except:
-        print("Give a valid number.")
-
-fibo = [0,1]
+def fib(start, length):
     
-if start < 2:
-    for i in range(length-1):
+##    while True:
+##        try:
+##            length = int(input("Give the length of the fibonacci series (must be positive): "))
+##            start = int(input("Give the starting number: "))
+##            break
+##        except:
+##            print("Give a valid number.")
+    if type(start) != int or type(length) != int:
+        print("Give valid input numbers.")
+        return -1
+
+    fibo = [0,1]
+        
+    if start < 2:
+        for i in range(length-1):
+            fibo.append(fibo[-2] + fibo[-1])
+    else:
+        while fibo[-1] < start:
+            fibo.append(fibo[-2] + fibo[-1])
         fibo.append(fibo[-2] + fibo[-1])
-else:
-    while fibo[-1] < start:
-        fibo.append(fibo[-2] + fibo[-1])
-    fibo.append(fibo[-2] + fibo[-1])
-    fibo = fibo[-3:]
-    for i in range(length-2):
-        fibo.append(fibo[-2] + fibo[-1])
+        fibo = fibo[-3:]
+        for i in range(length-2):
+            fibo.append(fibo[-2] + fibo[-1])
 
 
-fibo = fibo[1:] # Cut the first one
-fibo = fibo[:length] # Crop to length
-print(fibo)
+    fibo = fibo[1:] # Cut the first one
+    fibo = fibo[:length] # Crop to length
 
-file = open("fibonacciresult.txt", "w+")
+    file = open("fibonacciresult.txt", "w+")
 
-for n in fibo:
-    file.write(str(n) + "\n")
+    for n in fibo:
+        file.write(str(n) + "\n")
 
-file.close()
+    file.close()
+
+    return fibo
